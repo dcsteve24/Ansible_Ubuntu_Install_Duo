@@ -24,12 +24,5 @@ N/A
 # Role Variables
 N/A 
 
-# Example Playbook
-
-  - hosts: all
-    become: true
-    roles:
-      - install_duo_ssh
-
 # Author Information
 Steven Craig, 27Jan19
