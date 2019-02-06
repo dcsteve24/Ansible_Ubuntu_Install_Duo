@@ -25,9 +25,11 @@ N/A
 N/A 
 
 # Example Playbook
+
   - hosts: all
+    become: true
     roles:
-     - install_duo_ssh
+      - install_duo_ssh
 
 # Author Information
 Steven Craig, 27Jan19
