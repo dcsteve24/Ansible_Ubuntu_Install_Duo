@@ -17,3 +17,17 @@ When downloaded, the following edits will need to be made:
 2. Edit ./roles/install_duo_ssh/templates/login_duo.conf.j2 - Enter your specific ikey, skey, and host entries. Change the failmode to reflect your desired action; defaults as secure.
 
 When all the information has been changed for your enviornment, run the play. I typically run this play with ansible-playbook -kK --ask-vault-pass path_to_sssd_auth.yml
+
+# Requirements
+N/A
+
+# Role Variables
+N/A 
+
+# Example Playbook
+  - hosts: all
+    roles:
+     - auditing
+
+# Author Information
+Steven Craig, 27Jan19
