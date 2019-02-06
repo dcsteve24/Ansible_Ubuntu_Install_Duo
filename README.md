@@ -27,7 +27,7 @@ N/A
 # Example Playbook
   - hosts: all
     roles:
-     - auditing
+     - install_duo_ssh
 
 # Author Information
 Steven Craig, 27Jan19
