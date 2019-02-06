@@ -1,0 +1,42 @@
+---
+- name: install_duo | Install duo repo
+  lineinfile:
+    path: /etc/apt/sources.list.d/duosecurity.list
+    state: present
+    create: yes
+    backup: yes
+    mode: 0644
+    owner: root
+    group: root
+    line: 'deb http://pkg.duosecurity.com/Ubuntu xenial main'
+
+- name: install_duo | Grab the Duo apt-key
+  apt_key:
+    url: https://duo.com/APT-GPG-KEY-DUO
+    state: present
+
+- name: install_duo | Install Duo and SSH Package
+  apt:
+    name: 
+      - duo-unix
+      - ssh
+    state: latest
+    update_cache: yes
+
+- name: install_duo | Configure login_duo.conf
+  template:
+    backup: yes
+    force: yes
+    src: ./login_duo.conf.j2
+    dest: /etc/duo/login_duo.conf
+    owner: sshd
+    group: root
+    mode: 0600
+
+- name: install_duo | Configure sshd_config
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    backup: yes
+    line: "ForceCommand /usr/sbin/login_duo"
+  notify: restart ssh
