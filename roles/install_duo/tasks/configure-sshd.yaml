@@ -2,7 +2,7 @@
 #If configs are already present, this overwrites them to prevent conflicts in configs
 - name: configure_sshd | Replace Lines (if needed)
   replace:
-    path: "{{ sshd_config }}"
+    path: "{{ sshd_conf }}"
     regexp: "{{ item.regexp }}"
     replace: "{{ item.replace }}"
   with_items:

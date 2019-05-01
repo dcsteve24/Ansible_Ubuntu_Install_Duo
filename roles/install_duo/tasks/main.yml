@@ -3,5 +3,5 @@
 - include_vars: "secrets.yml"
 - include: install-sw-debian.yaml
 - include: configure-pam-duo.yaml
-- inlcude: configure-pam-commonauth.yaml
+- include: configure-pam-commonauth.yaml
 - include: configure-sshd.yaml
