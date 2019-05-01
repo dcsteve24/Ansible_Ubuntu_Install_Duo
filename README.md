@@ -1,4 +1,4 @@
-# Ansible_Ubuntu_Install_Duo_SSH_2FA
+# Ansible_Ubuntu_Install_Duo
 Installs Duo 2FA on logins for both PAM and SSH. The duo is set to safe, so will allow logins if connection to Duo cannot be made. Change this to secure if needed.
 
 This uses a template for common-auth based on sssd authentication. Edit that template as needed... You will probably need to understand PAM logic.
