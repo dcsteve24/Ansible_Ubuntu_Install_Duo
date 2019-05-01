@@ -1,4 +1,6 @@
 ---
+- include_vars: "main.yml"
+- include_vars: "secrets.yml"
 - include: install-sw-debian.yaml
 - include: configure-pam-duo.yaml
 - inlcude: configure-pam-commonauth.yaml
