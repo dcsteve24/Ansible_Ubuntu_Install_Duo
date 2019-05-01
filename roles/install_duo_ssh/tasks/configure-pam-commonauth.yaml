@@ -1,0 +1,10 @@
+---
+- name: configure-pam-commonauth | Configure PAM Common-Auth
+  template:
+    backup: yes
+    force: yes
+    src: ./pam-common-auth.j2
+    dest: "{{ commonauth_conf }}"
+    owner: root
+    group: root
+    mode: 0644

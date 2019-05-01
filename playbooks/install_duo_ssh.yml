@@ -1,6 +1,0 @@
----
-- hosts: all
-  remote_user: your_user 
-  become: true
-  roles:
-    - install_duo_ssh

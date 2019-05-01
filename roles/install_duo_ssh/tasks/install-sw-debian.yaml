@@ -1,0 +1,38 @@
+---
+- name: install_duo_debian | Install Duo Repo (U16)
+  lineinfile:
+    path: /etc/apt/sources.list.d/duosecurity.list
+    state: present
+    create: yes
+    backup: yes
+    mode: 0644
+    owner: root
+    group: root
+    line: 'deb http://pkg.duosecurity.com/Ubuntu xenial main'
+  when: ansible_distribution_major_version == "16"
+
+- name: install_duo_debian | Install Duo Repo (U18)
+  lineinfile:
+    path: /etc/apt/sources.list.d/duosecurity.list
+    state: present
+    create: yes
+    backup: yes
+    mode: 0644
+    owner: root
+    group: root
+    line: 'deb http://pkg.duosecurity.com/Ubuntu bionic main'
+  when: ansible_distribution_major_version == "18"
+
+- name: install_duo | Grab the Duo apt-key
+  apt_key:
+    url: https://duo.com/APT-GPG-KEY-DUO
+    state: present
+
+- name: install_duo | Install Duo and Dependencies
+  apt:
+    name:
+      - libssl-dev
+      - libpam-dev
+      - duo-unix
+    state: latest
+    update_cache: yes

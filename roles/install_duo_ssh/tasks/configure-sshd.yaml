@@ -1,0 +1,25 @@
+---
+#If configs are already present, this overwrites them to prevent conflicts in configs
+- name: configure_sshd | Replace Lines (if needed)
+  replace:
+    path: "{{ sshd_config }}"
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - { regexp: "UsePAM no", replace: "UsePAM yes" }
+    - { regexp: "ChallengeResponseAuthentication no", replace: "ChallengeResponseAuthentication yes" }
+    - { regexp: "UseDNS yes", replace: "UseDNS no" }
+  notify: restart ssh
+
+#This ensures the line is present
+- name: configure_sshd | Add Any Missing Lines (if needed)
+  lineinfile:
+    path: "{{ sshd_conf }}"
+    line: "{{ item.line }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { line: "UsePAM yes", state: "present" }
+    - { line: "ChallengeResponseAuthentication yes", state: "present" }
+    - { line: "UseDNS no", state: "present" }
+    - { line: "ForceCommand /usr/sbin/login_duo", state: "absent" }
+  notify: restart ssh

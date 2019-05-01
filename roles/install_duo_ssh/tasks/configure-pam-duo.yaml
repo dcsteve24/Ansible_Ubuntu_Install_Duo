@@ -1,0 +1,41 @@
+---
+- name: configure_pam_duo | Check if File Exists
+  stat:
+    path: "{{ pam_duo_conf }}"
+  register: duo_result
+
+- name: configure_pam_duo | Check if File Already Configured
+  lineinfile:
+    path: "{{ pam_duo_conf }}"
+    line: "ikey = {{ ikey }}"
+    state: present
+  check_mode: true
+  register: configured_result
+  when: duo_result.stat.exists
+
+- name: configure_pam_duo | Insert the Key Fields
+  replace:
+    path: "{{ pam_duo_conf }}"
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - { regexp: "ikey =", replace: "ikey = {{ ikey }}" }
+    - { regexp: "skey =", replace: "skey = {{ skey }}" }
+    - { regexp: "host =", replace: "host = {{ duo_host }}"}
+  when: configured_result is changed and duo_result.stat.exists
+
+- name: configure_pam_duo | Create the Missing File
+  blockinfile:
+    path: "{{ pam_duo_conf }}"
+    create: yes
+    owner: root
+    group: root
+    mode: 0600
+    state: present
+    block: |
+      [duo]
+      ikey = {{ ikey }}
+      skey = {{ skey }}
+      host = {{ host }}
+      failmode = safe
+  when: not duo_result.stat.exists

@@ -1,0 +1,8 @@
+---
+ikey:
+duo_host:
+
+##### DEFAULTS -- uncomment and edit as needed #####
+#pam_duo_conf: /etc/duo/pam_duo.conf
+#sshd_conf: /etc/ssh/sshd_config
+#commonauth_conf: /etc/pam.d/common-auth
