@@ -36,6 +36,6 @@
       [duo]
       ikey = {{ ikey }}
       skey = {{ skey }}
-      host = {{ host }}
+      host = {{ duo_host }}
       failmode = safe
   when: not duo_result.stat.exists
